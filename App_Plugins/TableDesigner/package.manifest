@@ -1,0 +1,15 @@
+﻿{
+    propertyEditors:[
+    {
+        name: "Macro rich text",
+        alias: "macroRichText",
+		isParameterEditor: true,
+        editor:{
+            view: "~/app_plugins/TableDesigner/tableDesigner.html"
+        }   
+    }
+],
+javascript: [
+	"~/App_Plugins/TableDesigner/tableDesigner.controller.js"
+]
+}

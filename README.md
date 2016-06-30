@@ -10,3 +10,6 @@ Makes it possible to add related links. Adds same functionality for macros as th
 
 ### Rich text editor 
 Makes it possible to use a rich text editor as a macro parameter. (Issues with adding anchors in Internet Explorer)
+
+### Table Designer
+Makes it possible to add a configurable table in a macro.

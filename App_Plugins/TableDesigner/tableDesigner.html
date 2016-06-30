@@ -1,0 +1,206 @@
+﻿<div ng-controller="tableDesignerController">
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#general" aria-controls="home" role="tab" data-toggle="tab">General Settings</a></li>
+            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Column Info</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Conditions</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane  active" id="general">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="" style="margin-bottom:0">
+                        Table Title
+                    </label>
+                    <div class="controls controls-row">
+                        <div class="umb-property-editor" model="param">
+                            <div>
+                                <div class="umb-editor">
+                                    <textarea class="umb-editor umb-textarea" ng-model="settings.tableOptions.tableTitle" rows="2"></textarea><br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="" style="margin-bottom:0">
+                        Page Size
+                        <small>How many records per page?</small>
+                    </label>
+                    <div class="controls controls-row">
+                        <div class="umb-property-editor" model="param">
+                            <div>
+                                <div class="umb-editor">
+                                    <input placeholder="" class="umb-editor" type="text" ng-model="settings.tableOptions.pageSize" /><br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="home">
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="" style="margin-bottom:0">
+                       Column Title
+                        <small>Title for the column</small>
+                    </label>
+
+                    <div class="controls controls-row">
+                        <div class="umb-property-editor" model="param">
+                            <div>
+                                <div class="umb-editor">
+                                    <input placeholder="" class="umb-editor" type="text" ng-model="column.title" /><br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="" style="margin-bottom:0">
+                        <span class="color-red">*</span>Targets
+                        <small>Matching field from SP</small>
+                    </label>
+
+                    <div class="controls controls-row">
+                        <div class="umb-property-editor" model="param">
+                            <div>
+                                <div class="umb-editor">
+                                    <input placeholder="" class="umb-editor" type="text" ng-model="column.targets" /><br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="umb-el-wrap">
+                    <label class="control-label" for="" style="margin-bottom:0">
+                        Column Template
+                        <small>For eg:&lt;span class="text-success"&gt;[[value]]&lt;span/&gt;default is : {{defaultColumnTmpl}}</small>
+                    </label>
+
+                    <div class="controls controls-row">
+                        <div class="umb-property-editor">
+                            <div>
+                                <div class="umb-editor">
+                                    <input placeholder="" class="umb-editor" type="text" ng-model="column.tmpl" /><br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn umb-button__button" ng-click="addColumn($event);" hotkey="" hotkey-when-hidden="">
+                    <span class="umb-button__content">
+                        Insert
+                    </span>
+                </button>
+                <br />
+                <h5>Available columns</h5>
+                <hr />
+                <table class="table">
+                    <thead>
+                        <tr><th>Title</th><th>Targets</th><th>Template</th><th></th></tr>
+                    </thead>
+                    <tbody ng-repeat="col in settings.columns track by $index">
+                        <tr>
+                            <td>{{col.title}}</td>
+                            <td>{{col.targets}}</td>
+                            <td><code>{{col.tmpl}}</code></td>
+                            <td><button class="btn btn-warning btn-small" ng-click="deleteColumn($event,col);">X</button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <div class="content-type-editor-dialog edit-property-settings">
+
+
+                    <div class="umb-el-wrap">
+                        <label class="control-label" for="" style="margin-bottom:0">
+                            If the column
+                        </label>
+
+                        <div class="controls controls-row">
+                            <div class="umb-property-editor">
+                                <div>
+                                    <div class="umb-editor">
+                                        <select class="umb-locked-field__input" ng-model="condition.targets">
+                                            <option ng-repeat="option in settings.columns" value="{{option.targets}}">{{option.title}}</option>
+                                        </select><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="umb-el-wrap">
+                        <label class="control-label" style="margin-bottom:0">
+                            is
+                        </label>
+
+                        <div class="controls controls-row">
+                            <div class="umb-property-editor">
+                                <div>
+                                    <div class="umb-editor">
+                                        <select ng-model="condition.selectedOperator">
+                                            <option ng-repeat="option in operators" value="{{option.operator}}">{{option.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="umb-el-wrap">
+                        <label class="control-label" for="" style="margin-bottom:0">
+                            the value
+                        </label>
+                        <div class="controls controls-row">
+                            <div class="umb-property-editor">
+                                <div>
+                                    <div class="umb-editor">
+                                        <input class="umb-editor" placeholder="value" type="text" ng-model="condition.value" /><br /><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="umb-el-wrap">
+                        <label class="control-label" for="" style="margin-bottom:0">
+                            Then the result should be
+                        </label>
+                        <div class="controls controls-row">
+                            <div class="umb-property-editor">
+                                <div>
+                                    <div class="umb-editor">
+                                        <input placeholder="default: {{defaultColumnTmpl}}" class="umb-editor" type="text" ng-model="condition.result" /><br /><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <button type="button" class="btn umb-button__button" ng-click="addCondition($event);" hotkey="" hotkey-when-hidden="">
+                        <span class="umb-button__content">
+                            Apply this condition
+                        </span>
+                    </button>
+                    <br />
+                    <h5>Available Conditions</h5>
+                    <hr />
+                    <table class="table">
+                        <thead>
+                            <tr><th width="90%">Condition</th><th width="10%"></th></tr>
+                        </thead>
+                        <tbody ng-repeat="item in settings.conditions track by $index">
+                            <tr>
+                                <td>If <code>{{item.targets}}</code> {{item.selectedOperator}} <strong>{{item.value}}</strong>, then <code>{{item.targets}}</code>= <code>{{item.result}}</code></td>
+                                <td><button class="btn btn-warning btn-small" ng-click="deleteCondition($event,item);">X</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
